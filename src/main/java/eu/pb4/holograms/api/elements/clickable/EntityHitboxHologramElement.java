@@ -45,8 +45,8 @@ public class EntityHitboxHologramElement extends AbstractHologramElement {
 
             accessor.setId(this.entityId);
             List<DataTracker.SerializedEntry<?>> data = new ArrayList<>();
-            data.add(new DataTracker.SerializedEntry<>(0, EntityAccessor.getNoGravity().getType(), true));
-            data.add(new DataTracker.SerializedEntry<>(1, EntityAccessor.getFlags().getType(), (byte) 0x20));
+            data.add(DataTracker.SerializedEntry.of(EntityAccessor.getNoGravity(), true));
+            data.add(DataTracker.SerializedEntry.of(EntityAccessor.getFlags(), (byte) 0x20));
 
             accessor.setTrackedValues(data);
 

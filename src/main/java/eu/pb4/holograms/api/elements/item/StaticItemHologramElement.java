@@ -43,8 +43,8 @@ public class StaticItemHologramElement extends AbstractItemHologramElement {
 
         accessor.setId(this.entityId);
         List<DataTracker.SerializedEntry<?>> data = new ArrayList<>();
-        data.add(new DataTracker.SerializedEntry<>(0, EntityAccessor.getNoGravity().getType(), true));
-        data.add(new DataTracker.SerializedEntry<>(1,ThrownItemEntityAccessor.getItem().getType(), this.itemStack));
+        data.add(DataTracker.SerializedEntry.of( EntityAccessor.getNoGravity(), true));
+        data.add(DataTracker.SerializedEntry.of(ThrownItemEntityAccessor.getItem(), this.itemStack));
         accessor.setTrackedValues(data);
 
         player.networkHandler.sendPacket(packet);
@@ -75,7 +75,7 @@ public class StaticItemHologramElement extends AbstractItemHologramElement {
 
             accessor.setId(this.entityId);
             List<DataTracker.SerializedEntry<?>> data = new ArrayList<>();
-            data.add(new DataTracker.SerializedEntry<>(0, ThrownItemEntityAccessor.getItem().getType(), this.itemStack));
+            data.add(DataTracker.SerializedEntry.of(ThrownItemEntityAccessor.getItem(), this.itemStack));
             accessor.setTrackedValues(data);
 
             for (ServerPlayerEntity player : hologram.getPlayerSet()) {

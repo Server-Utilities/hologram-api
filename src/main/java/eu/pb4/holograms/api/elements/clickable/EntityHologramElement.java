@@ -46,7 +46,7 @@ public class EntityHologramElement extends AbstractHologramElement {
         List<DataTracker.SerializedEntry<?>> data = new ArrayList<>();
         data.addAll(this.entity.getDataTracker().getChangedEntries());
         data.addAll(this.entity.getDataTracker().getDirtyEntries());
-        data.add(new DataTracker.SerializedEntry<>(data.size() - 1, EntityAccessor.getNoGravity().getType(), true));
+        data.add(DataTracker.SerializedEntry.of(EntityAccessor.getNoGravity(), true));
         accessor.setTrackedValues(data);
 
         player.networkHandler.sendPacket(packet);

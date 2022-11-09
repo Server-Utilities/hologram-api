@@ -45,11 +45,11 @@ public class MovingTextHologramElement extends AbstractTextHologramElement {
 
             accessor.setId(this.entityId);
             List<DataTracker.SerializedEntry<?>> data = new ArrayList<>();
-            data.add(new DataTracker.SerializedEntry<>(0, EntityAccessor.getNoGravity().getType(), true));
-            data.add(new DataTracker.SerializedEntry<>(1, EntityAccessor.getFlags().getType(), (byte) 0x20));
-            data.add(new DataTracker.SerializedEntry<>(2, EntityAccessor.getCustomName().getType(), Optional.of(this.getTextFor(player))));
-            data.add(new DataTracker.SerializedEntry<>(3, EntityAccessor.getNameVisible().getType(), true));
-            data.add(new DataTracker.SerializedEntry<>(4, ArmorStandEntityAccessor.getArmorStandFlags().getType(), (byte) 0x19));
+            data.add(DataTracker.SerializedEntry.of(EntityAccessor.getNoGravity(), true));
+            data.add(DataTracker.SerializedEntry.of(EntityAccessor.getFlags(), (byte) 0x20));
+            data.add(DataTracker.SerializedEntry.of(EntityAccessor.getCustomName(), Optional.of(this.getTextFor(player))));
+            data.add(DataTracker.SerializedEntry.of(EntityAccessor.getNameVisible(), true));
+            data.add(DataTracker.SerializedEntry.of(ArmorStandEntityAccessor.getArmorStandFlags(), (byte) 0x19));
 
             accessor.setTrackedValues(data);
 
@@ -82,7 +82,7 @@ public class MovingTextHologramElement extends AbstractTextHologramElement {
 
                 accessor.setId(this.entityId);
                 List<DataTracker.SerializedEntry<?>> data = new ArrayList<>();
-                data.add(new DataTracker.SerializedEntry<>(0, EntityAccessor.getCustomName().getType(), Optional.of(this.getTextFor(player))));
+                data.add(DataTracker.SerializedEntry.of(EntityAccessor.getCustomName(), Optional.of(this.getTextFor(player))));
                 accessor.setTrackedValues(data);
 
                 player.networkHandler.sendPacket(packet);

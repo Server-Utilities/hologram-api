@@ -51,8 +51,8 @@ public class SpinningItemHologramElement extends AbstractItemHologramElement {
 
             accessor.setId(this.itemId);
             List<DataTracker.SerializedEntry<?>> data = new ArrayList<>();
-            data.add(new DataTracker.SerializedEntry<>(0, EntityAccessor.getNoGravity().getType(), true));
-            data.add(new DataTracker.SerializedEntry<>(1, ItemEntityAccessor.getStack().getType(), this.itemStack));
+            data.add(DataTracker.SerializedEntry.of(EntityAccessor.getNoGravity(), true));
+            data.add(DataTracker.SerializedEntry.of(ItemEntityAccessor.getStack(), this.itemStack));
             accessor.setTrackedValues(data);
 
             player.networkHandler.sendPacket(packet);
@@ -66,7 +66,7 @@ public class SpinningItemHologramElement extends AbstractItemHologramElement {
 
             accessor.setId(this.helperId);
             List<DataTracker.SerializedEntry<?>> data = new ArrayList<>();
-            data.add(new DataTracker.SerializedEntry<>(0, AreaEffectCloudEntityAccessor.getRadius().getType(), 0f));
+            data.add(DataTracker.SerializedEntry.of(AreaEffectCloudEntityAccessor.getRadius(), 0f));
             accessor.setTrackedValues(data);
 
             player.networkHandler.sendPacket(packet);
@@ -106,7 +106,7 @@ public class SpinningItemHologramElement extends AbstractItemHologramElement {
 
             accessor.setId(this.itemId);
             List<DataTracker.SerializedEntry<?>> data = new ArrayList<>();
-            data.add(new DataTracker.SerializedEntry<>(0, ItemEntityAccessor.getStack().getType(), this.itemStack));
+            data.add(DataTracker.SerializedEntry.of(ItemEntityAccessor.getStack(), this.itemStack));
             accessor.setTrackedValues(data);
 
             for (ServerPlayerEntity player : hologram.getPlayerSet()) {

@@ -42,9 +42,9 @@ public class StaticTextHologramElement extends AbstractTextHologramElement {
         accessor.setId(this.entityId);
 
         List<DataTracker.SerializedEntry<?>> data = new ArrayList<>();
-        data.add(new DataTracker.SerializedEntry<>(0, AreaEffectCloudEntityAccessor.getRadius().getType(), 0f));
-        data.add(new DataTracker.SerializedEntry<>(1, EntityAccessor.getCustomName().getType(), Optional.of(this.getTextFor(player))));
-        data.add(new DataTracker.SerializedEntry<>(2, EntityAccessor.getNameVisible().getType(), true));
+        data.add(DataTracker.SerializedEntry.of(AreaEffectCloudEntityAccessor.getRadius(), 0f));
+        data.add(DataTracker.SerializedEntry.of(EntityAccessor.getCustomName(), Optional.of(this.getTextFor(player))));
+        data.add(DataTracker.SerializedEntry.of(EntityAccessor.getNameVisible(), true));
         accessor.setTrackedValues(data);
 
         player.networkHandler.sendPacket(packet);
@@ -75,7 +75,7 @@ public class StaticTextHologramElement extends AbstractTextHologramElement {
 
                 accessor.setId(this.entityId);
                 List<DataTracker.SerializedEntry<?>> data = new ArrayList<>();
-                data.add(new DataTracker.SerializedEntry<>(0, EntityAccessor.getCustomName().getType(), Optional.of(this.getTextFor(player))));
+                data.add(DataTracker.SerializedEntry.of(EntityAccessor.getCustomName(), Optional.of(this.getTextFor(player))));
                 accessor.setTrackedValues(data);
 
                 player.networkHandler.sendPacket(packet);
