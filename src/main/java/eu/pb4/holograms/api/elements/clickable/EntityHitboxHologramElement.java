@@ -40,15 +40,14 @@ public class EntityHitboxHologramElement extends AbstractHologramElement {
             player.networkHandler.sendPacket(new EntitySpawnS2CPacket(this.entityId, this.uuid, pos.x, pos.y, pos.z, 0, 0, this.entityType, 0, Vec3d.ZERO, 0));
         }
         {
-            var packet = HologramHelper.createUnsafe(EntityTrackerUpdateS2CPacket.class);
-            var accessor = (EntityTrackerUpdateS2CPacketAccessor) packet;
+            EntityTrackerUpdateS2CPacketAccessor packet = HologramHelper.createUnsafe(EntityTrackerUpdateS2CPacketAccessor.class);
 
-            accessor.setId(this.entityId);
+            packet.setId(this.entityId);
             List<DataTracker.Entry<?>> data = new ArrayList<>();
             data.add(new DataTracker.Entry<>(EntityAccessor.getNoGravity(), true));
             data.add(new DataTracker.Entry<>(EntityAccessor.getFlags(), (byte) 0x20));
 
-            accessor.setTrackedValues(data);
+            packet.setTrackedValues(data);
 
             player.networkHandler.sendPacket(packet);
         }
