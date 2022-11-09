@@ -38,13 +38,13 @@ public class StaticTextHologramElement extends AbstractTextHologramElement {
         player.networkHandler.sendPacket(new EntitySpawnS2CPacket(this.entityId, this.uuid, pos.x, pos.y - 0.9, pos.z, 0, 0, EntityType.AREA_EFFECT_CLOUD, 0, Vec3d.ZERO, 0));
 
         var packet = HologramHelper.createUnsafe(EntityTrackerUpdateS2CPacket.class);
-        EntityTrackerUpdateS2CPacketAccessor accessor = (EntityTrackerUpdateS2CPacketAccessor) packet;
+        EntityTrackerUpdateS2CPacketAccessor accessor = (EntityTrackerUpdateS2CPacketAccessor) (Object) packet;
         accessor.setId(this.entityId);
 
-        List<DataTracker.Entry<?>> data = new ArrayList<>();
-        data.add(new DataTracker.Entry<>(AreaEffectCloudEntityAccessor.getRadius(), 0f));
-        data.add(new DataTracker.Entry<>(EntityAccessor.getCustomName(), Optional.of(this.getTextFor(player))));
-        data.add(new DataTracker.Entry<>(EntityAccessor.getNameVisible(), true));
+        List<DataTracker.SerializedEntry<?>> data = new ArrayList<>();
+        data.add(new DataTracker.SerializedEntry<>(0, AreaEffectCloudEntityAccessor.getRadius().getType(), 0f));
+        data.add(new DataTracker.SerializedEntry<>(1, EntityAccessor.getCustomName().getType(), Optional.of(this.getTextFor(player))));
+        data.add(new DataTracker.SerializedEntry<>(2, EntityAccessor.getNameVisible().getType(), true));
         accessor.setTrackedValues(data);
 
         player.networkHandler.sendPacket(packet);
@@ -71,11 +71,11 @@ public class StaticTextHologramElement extends AbstractTextHologramElement {
         if (this.isDirty) {
             for (ServerPlayerEntity player : hologram.getPlayerSet()) {
                 var packet = HologramHelper.createUnsafe(EntityTrackerUpdateS2CPacket.class);
-                EntityTrackerUpdateS2CPacketAccessor accessor = (EntityTrackerUpdateS2CPacketAccessor) packet;
+                EntityTrackerUpdateS2CPacketAccessor accessor = (EntityTrackerUpdateS2CPacketAccessor) (Object) packet;
 
                 accessor.setId(this.entityId);
-                List<DataTracker.Entry<?>> data = new ArrayList<>();
-                data.add(new DataTracker.Entry<>(EntityAccessor.getCustomName(), Optional.of(this.getTextFor(player))));
+                List<DataTracker.SerializedEntry<?>> data = new ArrayList<>();
+                data.add(new DataTracker.SerializedEntry<>(0, EntityAccessor.getCustomName().getType(), Optional.of(this.getTextFor(player))));
                 accessor.setTrackedValues(data);
 
                 player.networkHandler.sendPacket(packet);

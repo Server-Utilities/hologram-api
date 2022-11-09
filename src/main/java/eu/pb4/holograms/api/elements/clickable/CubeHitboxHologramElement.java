@@ -40,13 +40,13 @@ public class CubeHitboxHologramElement extends AbstractHologramElement {
 
         {
             EntityTrackerUpdateS2CPacket packet = HologramHelper.createUnsafe(EntityTrackerUpdateS2CPacket.class);
-            EntityTrackerUpdateS2CPacketAccessor accessor = (EntityTrackerUpdateS2CPacketAccessor) packet;
+            EntityTrackerUpdateS2CPacketAccessor accessor = (EntityTrackerUpdateS2CPacketAccessor) (Object) packet;
 
             accessor.setId(this.entityId);
-            List<DataTracker.Entry<?>> data = new ArrayList<>();
-            data.add(new DataTracker.Entry<>(EntityAccessor.getNoGravity(), true));
-            data.add(new DataTracker.Entry<>(SlimeEntityAccessor.getSlimeSize(), this.size));
-            data.add(new DataTracker.Entry<>(EntityAccessor.getFlags(), (byte) 0x20));
+            List<DataTracker.SerializedEntry<?>> data = new ArrayList<>();
+            data.add(new DataTracker.SerializedEntry<>(0, EntityAccessor.getNoGravity().getType(), true));
+            data.add(new DataTracker.SerializedEntry<>(1, SlimeEntityAccessor.getSlimeSize().getType(), this.size));
+            data.add(new DataTracker.SerializedEntry<>(2, EntityAccessor.getFlags().getType(), (byte) 0x20));
 
             accessor.setTrackedValues(data);
 

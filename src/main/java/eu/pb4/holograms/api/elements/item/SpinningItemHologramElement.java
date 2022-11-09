@@ -47,12 +47,12 @@ public class SpinningItemHologramElement extends AbstractItemHologramElement {
             player.networkHandler.sendPacket(new EntitySpawnS2CPacket(this.itemId, this.itemUuid, pos.x, pos.y, pos.z, 0, 0, EntityType.ITEM, 0, Vec3d.ZERO, 0));
 
             var packet = HologramHelper.createUnsafe(EntityTrackerUpdateS2CPacket.class);
-            var accessor = (EntityTrackerUpdateS2CPacketAccessor) packet;
+            var accessor = (EntityTrackerUpdateS2CPacketAccessor) (Object) packet;
 
             accessor.setId(this.itemId);
-            List<DataTracker.Entry<?>> data = new ArrayList<>();
-            data.add(new DataTracker.Entry<>(EntityAccessor.getNoGravity(), true));
-            data.add(new DataTracker.Entry<>(ItemEntityAccessor.getStack(), this.itemStack));
+            List<DataTracker.SerializedEntry<?>> data = new ArrayList<>();
+            data.add(new DataTracker.SerializedEntry<>(0, EntityAccessor.getNoGravity().getType(), true));
+            data.add(new DataTracker.SerializedEntry<>(1, ItemEntityAccessor.getStack().getType(), this.itemStack));
             accessor.setTrackedValues(data);
 
             player.networkHandler.sendPacket(packet);
@@ -62,11 +62,11 @@ public class SpinningItemHologramElement extends AbstractItemHologramElement {
             player.networkHandler.sendPacket(new EntitySpawnS2CPacket(this.helperId, this.helperUuid, pos.x, pos.y - 0.6, pos.z, 0, 0, EntityType.AREA_EFFECT_CLOUD, 0, Vec3d.ZERO, 0));
 
             var packet = HologramHelper.createUnsafe(EntityTrackerUpdateS2CPacket.class);
-            EntityTrackerUpdateS2CPacketAccessor accessor = (EntityTrackerUpdateS2CPacketAccessor) packet;
+            EntityTrackerUpdateS2CPacketAccessor accessor = (EntityTrackerUpdateS2CPacketAccessor) (Object) packet;
 
             accessor.setId(this.helperId);
-            List<DataTracker.Entry<?>> data = new ArrayList<>();
-            data.add(new DataTracker.Entry<>(AreaEffectCloudEntityAccessor.getRadius(), 0f));
+            List<DataTracker.SerializedEntry<?>> data = new ArrayList<>();
+            data.add(new DataTracker.SerializedEntry<>(0, AreaEffectCloudEntityAccessor.getRadius().getType(), 0f));
             accessor.setTrackedValues(data);
 
             player.networkHandler.sendPacket(packet);
@@ -102,11 +102,11 @@ public class SpinningItemHologramElement extends AbstractItemHologramElement {
     public void onTick(AbstractHologram hologram) {
         if (this.isDirty) {
             var packet = HologramHelper.createUnsafe(EntityTrackerUpdateS2CPacket.class);
-            var accessor = (EntityTrackerUpdateS2CPacketAccessor) packet;
+            var accessor = (EntityTrackerUpdateS2CPacketAccessor) (Object) packet;
 
             accessor.setId(this.itemId);
-            List<DataTracker.Entry<?>> data = new ArrayList<>();
-            data.add(new DataTracker.Entry<>(ItemEntityAccessor.getStack(), this.itemStack));
+            List<DataTracker.SerializedEntry<?>> data = new ArrayList<>();
+            data.add(new DataTracker.SerializedEntry<>(0, ItemEntityAccessor.getStack().getType(), this.itemStack));
             accessor.setTrackedValues(data);
 
             for (ServerPlayerEntity player : hologram.getPlayerSet()) {
